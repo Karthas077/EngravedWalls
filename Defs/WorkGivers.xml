@@ -2,21 +2,6 @@
 <Defs>
 
 	<WorkGiverDef>
-		<defName>SmoothWalls</defName>
-		<label>smooth walls</label>
-		<giverClass>EW.WorkGiver_SmoothWall</giverClass>
-		<workType>Construction</workType>
-		<priorityInType>25</priorityInType>
-		<verb>smooth</verb>
-		<gerund>smoothing</gerund>
-		<scanThings>false</scanThings>
-		<scanCells>true</scanCells>
-		<requiredCapacities>
-			<li>Manipulation</li>
-		</requiredCapacities>
-	</WorkGiverDef>
-
-	<WorkGiverDef>
 		<defName>EngraveWalls</defName>
 		<label>engrave walls</label>
 		<giverClass>EW.WorkGiver_EngraveWall</giverClass>

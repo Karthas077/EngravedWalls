@@ -2,12 +2,6 @@
 <Defs>
 
 	<DesignationDef>
-		<defName>SmoothWall</defName>
-		<texturePath>SmoothWall_Ghost</texturePath>
-		<targetType>Cell</targetType>
-	</DesignationDef>
-
-	<DesignationDef>
 		<defName>EngraveWall</defName>
 		<texturePath>EngraveWall_Ghost</texturePath>
 		<targetType>Cell</targetType>

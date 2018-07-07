@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-	<EW.DesignatorSmoothWall>Smooth wall</EW.DesignatorSmoothWall>
-	<EW.DesignatorSmoothWallDesc>Designate rough stone walls to be smoothed.</EW.DesignatorSmoothWallDesc>
+	<EngravedStoneLabel>engraved {0}</EngravedStoneLabel>
+	<EngravedStoneDesc>A natural {0} wall that's been smoothed and engraved with an artistic pattern.</EngravedStoneDesc>
+	
+	<DesignatorEngraveWall>Engrave wall</DesignatorEngraveWall>
+	<DesignatorEngraveWallDesc>Designate a smoothed stone wall to be engraved. This requires artistic skill rather than construction skill. Pawns with higher artistic skill are more likely to actually produce art.</DesignatorEngraveWallDesc>
 
-	<EW.TerrainBeingSmoothed>The wall is already marked for smoothing.</EW.TerrainBeingSmoothed>
-	<EW.MessageMustDesignateRough>Must designate a rough stone wall, or a wall with an engraving.</EW.MessageMustDesignateRough>
-
-	<EW.MustResearchStonecutting>You must research Stonecutting before you can smooth walls!</EW.MustResearchStonecutting>
-
-	<EW.DesignatorEngraveWall>Engrave wall</EW.DesignatorEngraveWall>
-	<EW.DesignatorEngraveWallDesc>Designate smoothed stone wall to be engraved. This requires artistic skill rather than construction skill. Pawns with higher artistic skill are more likely to actually produce art.</EW.DesignatorEngraveWallDesc>
-
-	<EW.TerrainBeingEngraved>The wall is already marked for engraving.</EW.TerrainBeingEngraved>
-	<EW.MessageMustDesignateSmooth>Must designate a smoothed stone wall.</EW.MessageMustDesignateSmooth>
+	<SurfaceBeingEngraved>The wall is already marked for engraving.</SurfaceBeingEngraved>
+	<MessageMustDesignateSmooth>Must designate a smoothed stone wall.</MessageMustDesignateSmooth>
 
 </LanguageData>
