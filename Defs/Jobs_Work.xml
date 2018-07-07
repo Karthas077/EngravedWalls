@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<JobDef>
+		<defName>SmoothWall</defName>
+		<driverClass>EW.JobDriver_SmoothWall</driverClass>
+		<reportString>smoothing wall.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>EngraveWall</defName>
+		<driverClass>EW.JobDriver_EngraveWall</driverClass>
+		<reportString>engraving wall.</reportString>
+	</JobDef>
+
+</Defs>

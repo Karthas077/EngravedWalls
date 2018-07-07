@@ -1,0 +1,129 @@
+<Patch>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "CCP_Embrasure"]/graphicData/texPath</xpath>
+			<value>
+				<texPath>Embrasures</texPath>
+			</value>
+		</li>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "CCP_Embrasure"]/graphicData/graphicClass</xpath>
+			<value>
+				<graphicClass>Graphic_Appearances</graphicClass>
+			</value>
+		</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "Embrasure"]/graphicData/texPath</xpath>
+			<value>
+				<texPath>Embrasures</texPath>
+			</value>
+		</li>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "Embrasure"]/graphicData/graphicClass</xpath>
+			<value>
+				<graphicClass>Graphic_Appearances</graphicClass>
+			</value>
+		</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "FireResistantEmbrasures"]/graphicData/texPath</xpath>
+			<value>
+				<texPath>Embrasures</texPath>
+			</value>
+		</li>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "FireResistantEmbrasures"]/graphicData/graphicClass</xpath>
+			<value>
+				<graphicClass>Graphic_Appearances</graphicClass>
+			</value>
+		</li>
+		</operations>
+	</Operation>
+	
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "MedTimes_Wall_Embrasure"]/graphicData/texPath</xpath>
+			<value>
+				<texPath>Embrasures</texPath>
+			</value>
+		</li>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "MedTimes_Wall_Embrasure"]/graphicData/graphicClass</xpath>
+			<value>
+				<graphicClass>Graphic_Appearances</graphicClass>
+			</value>
+		</li>
+		</operations>
+	</Operation>
+	
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success> 
+		<operations>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "ReinforcedEmbrasures"]/graphicData/texPath</xpath>
+			<value>
+				<texPath>Embrasures</texPath>
+			</value>
+		</li>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "ReinforcedEmbrasures"]/graphicData/graphicClass</xpath>
+			<value>
+				<graphicClass>Graphic_Appearances</graphicClass>
+			</value>
+		</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "ReinforcedFireResistantEmbrasures"]/graphicData/texPath</xpath>
+			<value>
+				<texPath>Embrasures</texPath>
+			</value>
+		</li>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "ReinforcedFireResistantEmbrasures"]/graphicData/graphicClass</xpath>
+			<value>
+				<graphicClass>Graphic_Appearances</graphicClass>
+			</value>
+		</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "RME_Embrasure"]/graphicData/texPath</xpath>
+			<value>
+				<texPath>Embrasures</texPath>
+			</value>
+		</li>
+		<li Class="PatchOperationReplace">
+			<xpath>*/ThingDef[defName = "RME_Embrasure"]/graphicData/graphicClass</xpath>
+			<value>
+				<graphicClass>Graphic_Appearances</graphicClass>
+			</value>
+		</li>
+		</operations>
+	</Operation>
+	
+</Patch>

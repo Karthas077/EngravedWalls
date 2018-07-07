@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+
+	<name>Engraved Walls [b18]</name>
+	<author>Karthas077</author>
+	<url>http://dwarffortresswiki.org/index.php/DF2014:Engraving</url>
+	<targetVersion>0.18.0</targetVersion>
+	<description>(Last update: 07/02/2018)
+
+Smooth and engrave walls just like in Dwarf Fortress!
+
+=====
+
+Compatibility:
+
+"Engraved Walls" is compatible with mods that add new natural stones (As long as they follow Vanilla naming conventions), as well as many embrasure adding mods.
+=====
+
+Credits:
+
+A vast majority of the work on this mod comes from Rainbeau Flambe (dburgdorf)'s "Smooth Stone Walls" mod.
+
+The mod utilizes Pardeike's "Harmony Patch Library." (No additional download is required, as the library is included with the mod.)
+
+=====
+
+License:
+
+Use however you want as long as you don't try to claim this work as your own.
+
+=====
+
+	</description>
+
+</ModMetaData>

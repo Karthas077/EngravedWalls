@@ -1,0 +1,26 @@
+<Patch>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>*/DesignationCategoryDef[defName = "Structure"]/specialDesignatorClasses</xpath>
+		<value>
+			<li>EW.Designator_SmoothWall</li>
+			<li>EW.Designator_EngraveWall</li>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>*/DesignationCategoryDef[defName = "Structure"]/specialDesignatorClasses</xpath>
+		<value>
+			<li>EW.Designator_SmoothWall</li>
+			<li>EW.Designator_EngraveWall</li>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>*/ThingDef[defName = "Wall"]/graphicData/texPath</xpath>
+		<value>
+			<texPath>Walls</texPath>
+		</value>
+	</Operation>
+
+</Patch>

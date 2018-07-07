@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<RulePackDef>
+		<defName>ArtDescription_EngravedWall</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>physical_description_root->This wall is engraved with a [depiction] of [image]. [desc_sentence_group]</li>
+				<li>physical_description_root->This wall bears a [depiction] of [image]. [desc_sentence_group]</li>
+				<li>physical_description_root->An engraving on this wall [depicts] [image]. [desc_sentence_group]</li>
+			</rulesStrings>
+		</rulePack>
+	</RulePackDef>
+
+</Defs>

@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef Name="EW_BuildingBase" Abstract="True">
+		<category>Building</category>
+		<thingClass>Building</thingClass>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<repairEffect>Repair</repairEffect>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<filthLeaving>BuildingRubble</filthLeaving>
+		<statBases>
+			<SellPriceFactor>0.70</SellPriceFactor>
+		</statBases>
+	</ThingDef>
+
+	<ThingDef ParentName="EW_BuildingBase">
+		<defName>InvisiColumn</defName>
+		<label>invisicolumn</label>
+		<description>There's nothing to see here!</description>
+		<graphicData>
+			<texPath>InvisiColumn</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<passability>Standable</passability>
+		<fillPercent>0</fillPercent>
+		<tickerType>Never</tickerType>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<holdsRoof>true</holdsRoof>
+		<blockLight>false</blockLight>
+		<specialDisplayRadius>5.9</specialDisplayRadius>
+	</ThingDef>
+
+	<ThingDef ParentName="EW_BuildingBase" Name="EW_WallSmoothed">
+		<defName>SmoothedWall</defName>
+		<label>smoothed stone wall</label>
+		<description>A natural stone wall that's been smoothed to make it more attractive.</description>
+		<thingClass>Mineable</thingClass>
+		<saveCompressible>false</saveCompressible>
+		<graphicData>
+			<texPath>WallsSmoothed</texPath>
+			<graphicClass>Graphic_Appearances</graphicClass>
+			<linkType>CornerFiller</linkType>
+			<linkFlags>
+				<li>Wall</li>
+				<li>Rock</li>
+			</linkFlags>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+				<edgeTop>Damage/Edge</edgeTop>
+				<edgeBot>Damage/Edge</edgeBot>
+				<edgeLeft>Damage/Edge</edgeLeft>
+				<edgeRight>Damage/Edge</edgeRight>
+			</damageData>
+		</graphicData>
+		<blueprintGraphicData>
+			<texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+		</blueprintGraphicData>
+		<uiIconPath>Things/Building/Linked/WallSmooth_MenuIcon</uiIconPath>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToBuild>460</WorkToBuild>
+			<Flammability>0.0</Flammability>
+		</statBases>
+		<costStuffCount>5</costStuffCount>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>Impassable</passability>
+		<blockWind>true</blockWind>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>1</fillPercent>
+		<coversFloor>true</coversFloor>
+		<placingDraggableDimensions>1</placingDraggableDimensions>
+		<tickerType>Never</tickerType>
+		<rotatable>false</rotatable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<holdsRoof>true</holdsRoof>
+		<designationCategory></designationCategory>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<blockLight>true</blockLight>
+		<mineable>true</mineable>
+		<canOverlapZones>false</canOverlapZones>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<building>
+			<isInert>true</isInert>
+			<deconstructible>false</deconstructible>
+		</building>
+		<damageMultipliers>
+			<li>
+				<damageDef>Bomb</damageDef>
+				<multiplier>2</multiplier>
+			</li>
+		</damageMultipliers>
+		<designationHotKey></designationHotKey>
+		<tradeability>Never</tradeability>
+	</ThingDef>
+
+	<ThingDef ParentName="EW_WallSmoothed" Name="EW_WallEngraved">
+		<defName>EngravedWall</defName>
+		<label>engraved stone wall</label>
+		<description>A natural stone wall that's been smoothed and engraved with an artistic pattern.</description>
+		<graphicData>
+			<texPath>WallsEngraved</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>340</MaxHitPoints>
+			<WorkToBuild>2260</WorkToBuild>
+			<Beauty>1</Beauty>
+		</statBases>
+		<comps>
+			<li>
+				<compClass>CompQuality</compClass>
+			</li>
+			<li Class="CompProperties_Art">
+				<nameMaker>ArtName_Sculpture</nameMaker>
+				<descriptionMaker>ArtDescription_EngravedWall</descriptionMaker>
+				<canBeEnjoyedAsArt>true</canBeEnjoyedAsArt>
+			</li>
+		</comps>
+		<inspectorTabs>
+		  <li>ITab_Art</li>
+		</inspectorTabs>
+	</ThingDef>
+
+</Defs>
