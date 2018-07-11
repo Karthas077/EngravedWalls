@@ -608,4 +608,17 @@ namespace EW
         }
     }
 
+    [HarmonyPatch(typeof(ItemCollectionGenerator_Meteorite), "Reset", null)]
+    public static class ItemCollectionGenerator_Meteorite_Reset
+    {
+        public static bool Prefix(ref ItemCollectionGenerator_Meteorite __instance)
+        {
+            ItemCollectionGenerator_Meteorite.mineables.Clear();
+            ItemCollectionGenerator_Meteorite.mineables.AddRange(from x in DefDatabase<ThingDef>.AllDefsListForReading
+                                                                 where x.mineable && x != RimWorld.ThingDefOf.CollapsedRocks && !x.defName.Contains("Engraved")
+                                                                 select x);
+            return false;
+        }
+    }
+
 }
