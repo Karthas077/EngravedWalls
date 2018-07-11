@@ -611,7 +611,7 @@ namespace EW
     [HarmonyPatch(typeof(ItemCollectionGenerator_Meteorite), "Reset", null)]
     public static class ItemCollectionGenerator_Meteorite_Reset
     {
-        public static bool Prefix(ref ItemCollectionGenerator_Meteorite __instance)
+        public static bool Prefix()
         {
             ItemCollectionGenerator_Meteorite.mineables.Clear();
             ItemCollectionGenerator_Meteorite.mineables.AddRange(from x in DefDatabase<ThingDef>.AllDefsListForReading
