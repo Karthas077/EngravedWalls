@@ -42,8 +42,6 @@ namespace EW
             //Postfix
             harmony.Patch(AccessTools.Property(typeof(ThingDef), "IsSmoothable").GetGetMethod(), null,
                 new HarmonyMethod(typeof(EngravedWalls), nameof(IsSmoothable)), null);
-            //harmony.Patch(AccessTools.Method(typeof(ThingDef), "IsSmoothable"), null,
-            //    new HarmonyMethod(typeof(EngravedWalls), nameof(IsSmoothable)), null);
             //Prefix
             harmony.Patch(AccessTools.Method(typeof(SmoothableWallUtility), "SmoothWall"),
                 new HarmonyMethod(typeof(EngravedWalls), nameof(SmoothWall)), null, null);
@@ -53,8 +51,10 @@ namespace EW
             //Postfix
             harmony.Patch(AccessTools.Method(typeof(DefGenerator), "GenerateImpliedDefs_PreResolve"), null,
                 new HarmonyMethod(typeof(EngravedWalls), nameof(GenerateImpliedDefs_PreResolve)), null);
-
-
+            //Prefix
+            harmony.Patch(AccessTools.Method(typeof(ThingSetMaker_Meteorite), "Reset"),
+                new HarmonyMethod(typeof(EngravedWalls), nameof(ResetMeteorite)), null, null);
+            
         }
 
         //Patch to allow Engraved walls to be designated to be smoothed.
@@ -99,6 +99,15 @@ namespace EW
             {
                 DefGenerator.AddImpliedDef<ThingDef>(def);
             }
+        }
+        //Patch to prevent meteorites from dropping engraved walls
+        public static bool ResetMeteorite(ref ThingSetMaker_Meteorite __instance)
+        {
+            ThingSetMaker_Meteorite.nonSmoothedMineables.Clear();
+            ThingSetMaker_Meteorite.nonSmoothedMineables.AddRange(from x in DefDatabase<ThingDef>.AllDefsListForReading
+                                                                  where x.mineable && x != ThingDefOf.CollapsedRocks && !x.IsSmoothed && !x.defName.Contains("Engraved")
+                                                                  select x);
+            return false;
         }
 
         //Enumerator to process the existing ThingDefs
