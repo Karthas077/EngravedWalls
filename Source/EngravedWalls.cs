@@ -101,7 +101,7 @@ namespace EW
             }
         }
         //Patch to prevent meteorites from dropping engraved walls
-        public static bool ResetMeteorite(ref ThingSetMaker_Meteorite __instance)
+        public static bool ResetMeteorite()
         {
             ThingSetMaker_Meteorite.nonSmoothedMineables.Clear();
             ThingSetMaker_Meteorite.nonSmoothedMineables.AddRange(from x in DefDatabase<ThingDef>.AllDefsListForReading
