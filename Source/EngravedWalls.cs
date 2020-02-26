@@ -1,13 +1,9 @@
-using Harmony;
+using HarmonyLib;
 using RimWorld;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -38,7 +34,7 @@ namespace EW
         public EngravedWalls(ModContentPack content) : base(content)
         {
             thisPack = content;
-            HarmonyInstance harmony = HarmonyInstance.Create("net.karthas.rimworld.mod.engravestone1");
+            Harmony harmony = new Harmony("net.karthas.rimworld.mod.engravestone1");
             //Postfix
             harmony.Patch(AccessTools.Property(typeof(ThingDef), "IsSmoothable").GetGetMethod(), null,
                 new HarmonyMethod(typeof(EngravedWalls), nameof(IsSmoothable)), null);
@@ -46,11 +42,20 @@ namespace EW
             harmony.Patch(AccessTools.Method(typeof(SmoothableWallUtility), "SmoothWall"),
                 new HarmonyMethod(typeof(EngravedWalls), nameof(SmoothWall)), null, null);
             //Prefix
+            harmony.Patch(AccessTools.Method(typeof(Designator_Cancel), "DesignateThing"),
+                new HarmonyMethod(typeof(EngravedWalls), nameof(DesignateThing)), null, null);
+            //Prefix
+            harmony.Patch(AccessTools.Method(typeof(Designator_Cancel), "CanDesignateThing"),
+                new HarmonyMethod(typeof(EngravedWalls), nameof(CanDesignateThing)), null, null);
+            //Prefix
             harmony.Patch(AccessTools.Method(typeof(Designator_Mine), "DesignateSingleCell"),
                 new HarmonyMethod(typeof(EngravedWalls), nameof(DesignateSingleCell)), null, null);
             //Postfix
             harmony.Patch(AccessTools.Method(typeof(DefGenerator), "GenerateImpliedDefs_PreResolve"), null,
                 new HarmonyMethod(typeof(EngravedWalls), nameof(GenerateImpliedDefs_PreResolve)), null);
+            //Postfix
+            harmony.Patch(AccessTools.Method(typeof(ReverseDesignatorDatabase), "InitDesignators"), null,
+                new HarmonyMethod(typeof(EngravedWalls), nameof(InitDesignators)), null);
             //Prefix
             harmony.Patch(AccessTools.Method(typeof(ThingSetMaker_Meteorite), "Reset"),
                 new HarmonyMethod(typeof(EngravedWalls), nameof(ResetMeteorite)), null, null);
@@ -80,6 +85,28 @@ namespace EW
                 GenSpawn.Spawn(thing, target.Position, map, target.Rotation, WipeMode.Vanish, false);
                 map.designationManager.TryRemoveDesignation(target.Position, RimWorld.DesignationDefOf.SmoothWall);
                 __result = thing;
+                return false;
+            }
+            return true;
+        }
+
+        //Patch to display cancel button when selecting a wall designated to be engraved
+        public static bool CanDesignateThing(Thing t, ref AcceptanceReport __result)
+        {
+            if(t.def.IsSmoothed && t.Map.designationManager.DesignationAt(t.Position, DesignationDefOf.EngraveWall) != null)
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
+        
+        //Patch to cancel engraving
+        public static bool DesignateThing(Designator_Cancel __instance, Thing t)
+        {
+            if (t.def.IsSmoothed && t.Map.designationManager.DesignationAt(t.Position, DesignationDefOf.EngraveWall) != null)
+            {
+                __instance.Map.designationManager.TryRemoveDesignation(t.Position, DesignationDefOf.EngraveWall);
                 return false;
             }
             return true;
@@ -115,7 +142,7 @@ namespace EW
         {
             int i = 0;
             foreach (ThingDef rock in from def in DefDatabase<ThingDef>.AllDefs.ToList<ThingDef>()
-                                      where def.building != null && def.building.isNaturalRock && !def.building.isResourceRock && !def.defName.Contains("Engraved")
+                                      where def.building != null && def.building.isNaturalRock && !def.building.isResourceRock
                                       select def)
             {
                 //Building a new ThingDef from the root up!
@@ -152,6 +179,7 @@ namespace EW
                 //engraved.building.isNaturalRock = true; //Overwritten
                 //engraved.building.canBuildNonEdificesUnder = false; //Overwritten
                 //engraved.building.deconstructible = false; //Private variable...
+                typeof(BuildingProperties).GetField("deconstructible", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(engraved.building, false);
                 //UglyRockBase
                 StatUtility.SetStatValueInList(ref engraved.statBases, StatDefOf.Flammability, 0F);
                 //StatUtility.SetStatValueInList(ref engraved.statBases, StatDefOf.Beauty, -2F); //Overwritten
@@ -167,18 +195,12 @@ namespace EW
                 //engraved.building.smoothedThing = rock.building.smoothedThing; //Can't have multiple things smooth to the same thing.
                 //SmoothedStoneBase
                 engraved.defName = "Engraved" + rock.defName;
-                engraved.label = "EngravedStoneLabel".Translate(new object[]
-                {
-                    rock.label
-                });
-                engraved.description = "EngravedStoneDesc".Translate(new object[]
-                {
-                    rock.label
-                });
+                engraved.label = "EngravedStoneLabel".Translate(rock.label);
+                engraved.description = "EngravedStoneDesc".Translate(rock.label);
                 engraved.graphicData.texPath = "WallsEngraved";
                 StatUtility.SetStatValueInList(ref engraved.statBases, StatDefOf.Beauty, 1F);
                 StatUtility.SetStatValueInList(ref engraved.statBases, StatDefOf.MarketValue, 18F);
-                engraved.building.isNaturalRock = false; //Unfortunately this needs to remain true to prevent smoothed walls from defaulting to deconstructible.
+                engraved.building.isNaturalRock = false;
                 engraved.building.canBuildNonEdificesUnder = true;
                 engraved.saveCompressible = false;
                 //Art
@@ -200,6 +222,11 @@ namespace EW
             }
             yield break;
         }
+        
+        public static void InitDesignators(ref List<Designator> ___desList)
+        {
+            ___desList.Add(new Designator_EngraveWall());
+        }
     }
 
     public class Designator_EngraveWall : Designator_SmoothSurface
@@ -215,7 +242,16 @@ namespace EW
             this.soundSucceeded = SoundDefOf.Designate_SmoothSurface;
             this.hotKey = KeyBindingDefOf.Misc1;
         }
-        
+
+        public override AcceptanceReport CanDesignateThing(Thing t)
+        {
+            if (t != null && t.def.IsSmoothed && this.CanDesignateCell(t.Position).Accepted)
+            {
+                return AcceptanceReport.WasAccepted;
+            }
+            return false;
+        }
+
         public override AcceptanceReport CanDesignateCell(IntVec3 c)
         {
             AcceptanceReport result;
@@ -293,9 +329,24 @@ namespace EW
             }
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
-            return this.pawn.Reserve(this.job.targetA, this.job, 1, -1, null) && this.pawn.Reserve(this.job.targetA.Cell, this.job, 1, -1, null);
+            Pawn pawn = this.pawn;
+            LocalTargetInfo target = this.job.targetA;
+            Job job = this.job;
+            bool reservedCell;
+            if (pawn.Reserve(target, job, 1, -1, null, errorOnFailed))
+            {
+                pawn = this.pawn;
+                target = this.job.targetA.Cell;
+                job = this.job;
+                reservedCell = pawn.Reserve(target, job, 1, -1, null, errorOnFailed);
+            }
+            else
+            {
+                reservedCell = false;
+            }
+            return reservedCell;
         }
 
         protected override IEnumerable<Toil> MakeNewToils()
@@ -381,53 +432,43 @@ namespace EW
 
         public override IEnumerable<IntVec3> PotentialWorkCellsGlobal(Pawn pawn)
         {
-            if (pawn.Faction != Faction.OfPlayer)
+            if (pawn.Faction == Faction.OfPlayer)
             {
-                yield break;
+                foreach (Designation des in pawn.Map.designationManager.SpawnedDesignationsOfDef(DesignationDefOf.EngraveWall))
+                {
+                    yield return des.target.Cell;
+                }
             }
-            foreach (Designation des in pawn.Map.designationManager.SpawnedDesignationsOfDef(DesignationDefOf.EngraveWall))
-            {
-                yield return des.target.Cell;
-            }
-            yield break;
         }
 
         public override bool HasJobOnCell(Pawn pawn, IntVec3 c, bool forced = false)
         {
-            bool result;
             if (c.IsForbidden(pawn) || pawn.Map.designationManager.DesignationAt(c, DesignationDefOf.EngraveWall) == null)
             {
-                result = false;
+                return false;
             }
-            else
+            Building edifice = c.GetEdifice(pawn.Map);
+            if (edifice == null || !edifice.def.IsSmoothed)
             {
-                Building edifice = c.GetEdifice(pawn.Map);
-                if (edifice == null || !edifice.def.IsSmoothed)
+                Log.ErrorOnce("Failed to find valid edifice when trying to engrave a wall", 58988176, false);
+                pawn.Map.designationManager.TryRemoveDesignation(c, DesignationDefOf.EngraveWall);
+                return false;
+            }
+            LocalTargetInfo target = edifice;
+            if (pawn.CanReserve(target, 1, -1, null, forced))
+            {
+                target = c;
+                if (pawn.CanReserve(target, 1, -1, null, forced))
                 {
-                    Log.ErrorOnce("Failed to find valid edifice when trying to engrave a wall", 58988176, false);
-                    pawn.Map.designationManager.TryRemoveDesignation(c, DesignationDefOf.EngraveWall);
-                    result = false;
-                }
-                else
-                {
-                    LocalTargetInfo target = edifice;
-                    if (pawn.CanReserve(target, 1, -1, null, forced))
-                    {
-                        target = c;
-                        if (pawn.CanReserve(target, 1, -1, null, forced))
-                        {
-                            return true;
-                        }
-                    }
-                    result = false;
+                    return true;
                 }
             }
-            return result;
+            return false;
         }
 
         public override Job JobOnCell(Pawn pawn, IntVec3 c, bool forced = false)
         {
-            return new Job(JobDefOf.EngraveWall, c.GetEdifice(pawn.Map));
+            return JobMaker.MakeJob(JobDefOf.EngraveWall, c.GetEdifice(pawn.Map));
         }
     }
 }

@@ -5,6 +5,7 @@
 		<defName>EngraveWall</defName>
 		<driverClass>EW.JobDriver_EngraveWall</driverClass>
 		<reportString>engraving wall.</reportString>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>
 
 </Defs>

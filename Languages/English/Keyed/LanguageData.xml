@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-	<EngravedStoneLabel>engraved {0}</EngravedStoneLabel>
+	<EngravedStoneLabel>engraved {0} wall</EngravedStoneLabel>
 	<EngravedStoneDesc>A natural {0} wall that's been smoothed and engraved with an artistic pattern.</EngravedStoneDesc>
 	
 	<DesignatorEngraveWall>Engrave wall</DesignatorEngraveWall>

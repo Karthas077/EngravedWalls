@@ -1,7 +1,7 @@
 <Patch>
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/DesignationCategoryDef[defName = "Structure"]/specialDesignatorClasses</xpath>
+		<xpath>*/DesignationCategoryDef[defName = "Orders"]/specialDesignatorClasses</xpath>
 		<value>
 			<li>EW.Designator_EngraveWall</li>
 		</value>

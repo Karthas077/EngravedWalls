@@ -5,6 +5,7 @@
 		<defName>EngraveWall</defName>
 		<texturePath>EngraveWall_Ghost</texturePath>
 		<targetType>Cell</targetType>
+		<removeIfBuildingDespawned>true</removeIfBuildingDespawned>
 	</DesignationDef>
 
 </Defs>
